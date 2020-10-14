@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  backend:
+    image: golang:1.15-buster
+    volumes:
+    - .:/go/src/nventory
+    working_dir: /go/src/nventory
+    command: go run main.go
