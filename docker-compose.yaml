@@ -7,3 +7,5 @@ services:
     - .:/go/src/nventory
     working_dir: /go/src/nventory
     command: go run main.go
+    ports:
+    - 8080
