@@ -1,0 +1,23 @@
+language: generic
+
+services:
+- docker
+
+env:
+  global:
+    IMAGE_NAME=rclsilver/nventory
+    TAG_PREFIX=$(date +%Y%m%d%H%M)
+
+install:
+- |
+  docker build \
+    -t ${IMAGE_NAME} \
+    -f Dockerfile \
+    .
+
+after_success:
+- echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USERNAME}" --password-stdin
+- docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${TAG_PREFIX}-${TRAVIS_COMMIT}"
+- docker push "${IMAGE_NAME}:${TAG_PREFIX}-${TRAVIS_COMMIT}"
+- docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+- docker push "${IMAGE_NAME}:latest"
