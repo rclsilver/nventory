@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">nVentory</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-top" aria-controls="nav-top" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="nav-top">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="debug" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Debug</a>
+        <div class="dropdown-menu" aria-labelledby="debug">
+          <a class="dropdown-item" routerLink="debug/headers" routerLinkActive="active">Headers</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="pull-right">
+    <ul class="nav pull-right">
+      <li>
+        <img src="/assets/img/person-fill.svg" alt="" width="32" height="32">
+        username
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
