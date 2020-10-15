@@ -22,8 +22,14 @@ func InitializeRouter() http.Handler {
 
   // Define API routes
   api := router.PathPrefix("/api").Subrouter()
-  api.Methods("GET").Path("/debug/headers").HandlerFunc(controllers.DebugHeaders)
-  api.Methods("GET").Path("/debug/user").HandlerFunc(controllers.DebugCurrentUser)
+
+  // Define debug routes
+  debug := api.PathPrefix("/debug").Subrouter()
+  debug.Methods("GET").Path("/headers").HandlerFunc(controllers.DebugHeaders)
+
+  // Define auth routes
+  auth := api.PathPrefix("/auth").Subrouter()
+  auth.Methods("GET").Path("/user").HandlerFunc(controllers.CurrentUser)
 
   // Serve frontend
   router.PathPrefix("/").Handler(http.FileServer(http.Dir("./ui")))

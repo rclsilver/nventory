@@ -1,5 +1,9 @@
 {
   "/api/*": {
-    "target": "http://backend:8080"
+    "target": "http://backend:8080",
+    "headers": {
+      "X-Auth-Username": "dev-user",
+      "X-Auth-Email": "dev-user@example.com"
+    }
   }
 }
