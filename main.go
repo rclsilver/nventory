@@ -20,6 +20,9 @@ func InitializeRouter() http.Handler {
   api := router.PathPrefix("/api")
   api.Methods("GET").Path("/debug/headers").Name("Debug-Headers").HandlerFunc(controllers.DebugHeaders)
 
+  // Serve frontend
+  router.PathPrefix("/").Handler(http.FileServer(http.Dir("./ui")))
+
   // Returns a logged router
   return handlers.LoggingHandler(os.Stdout, router)
 }

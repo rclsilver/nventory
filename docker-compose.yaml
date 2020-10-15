@@ -9,3 +9,15 @@ services:
     command: go run main.go
     ports:
     - 8080
+  frontend:
+    image: 'nventory-devel'
+    build:
+      context: .
+      target: ui-devel-stage
+    volumes:
+      - ./ui:/app
+    environment:
+      NPM_CONFIG_PREFIX: /tmp
+    command: sh -c 'npm install && npm install --only=dev && npm start'
+    ports:
+    - 4200
