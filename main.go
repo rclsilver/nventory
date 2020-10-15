@@ -1,6 +1,7 @@
 package main
 
 import (
+  "github.com/rclsilver/nventory/authentication"
   "github.com/rclsilver/nventory/controllers"
 
   "github.com/gorilla/handlers"
@@ -16,9 +17,13 @@ func InitializeRouter() http.Handler {
   // Create the router
   router := mux.NewRouter()
 
+  // Enable external authentication
+  router.Use(authentication.ExternalAuthenticationHandler)
+
   // Define API routes
-  api := router.PathPrefix("/api")
-  api.Methods("GET").Path("/debug/headers").Name("Debug-Headers").HandlerFunc(controllers.DebugHeaders)
+  api := router.PathPrefix("/api").Subrouter()
+  api.Methods("GET").Path("/debug/headers").HandlerFunc(controllers.DebugHeaders)
+  api.Methods("GET").Path("/debug/user").HandlerFunc(controllers.DebugCurrentUser)
 
   // Serve frontend
   router.PathPrefix("/").Handler(http.FileServer(http.Dir("./ui")))
